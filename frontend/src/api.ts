@@ -6,6 +6,6 @@ const api: ReturnType<typeof axios.create> = axios.create({
   // timeout: 10000, // Set a timeout for requests (in milliseconds)
 
 });
-
+8
 
 export default api
