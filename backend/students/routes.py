@@ -6,17 +6,17 @@ from sqlalchemy.orm import Session
 from typing import List
 
 
-studentRouter = APIRouter(prefix="/students", tags=["students"])
+studentRouter = APIRouter(prefix="/api/students", tags=["students"])
 
 #Getting students from the database
-@studentRouter.get("/", response_model=List[StudentSchema]) # Should it return a list of StudentDB or StudentSchema!? I think it should be the schema because this is an API thing and the API should return student based on pydantic models
+@studentRouter.get("/all_students", response_model=List[StudentSchema]) # Should it return a list of StudentDB or StudentSchema!? I think it should be the schema because this is an API thing and the API should return student based on pydantic models
 def all_students(db: Session = Depends(get_db)):
 
     all_students = db.query(StudentDB).all() 
 
     return all_students
 
-@studentRouter.get("/{student_id}/", response_model=StudentSchema) 
+@studentRouter.get("/students/{student_id}", response_model=StudentSchema) 
 def specific_student(student_id:int, db: Session = Depends(get_db)):
     student = db.query(StudentDB).filter(StudentDB.id == student_id).first()
     return student
@@ -57,5 +57,6 @@ def create_student(student: StudentSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_student)
 
-    return {"id": new_student.id,
-            "unique_user_id": new_student.unique_user_id,}
+    return {"id": new_student.id, #Returns data that was generated automatically by the database and not provided by the user. This is important because the user might want to know what the unique_user_id and matric_no are for the student they just created.
+            "unique_user_id": new_student.unique_user_id,
+            "matric_no": new_student.matric_no,}
