@@ -1,14 +1,20 @@
-import Home from './components/home.tsx'
 import { useState } from 'react'
 import MainLayout from './components/MainLayout.tsx'
-
+import LoginForm from './components/pages/LoginForm.tsx'
+import Home from './components/pages/Home.tsx'
+import {Routes, Route, Link} from 'react-router';
 
 function App() {
   return (
     <>
 
       <MainLayout>
-        <span className="text-primary">Welcome to SkeletonStack</span>
+    
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginForm />} />
+        </Routes>
+
       </MainLayout>
 
     </>
