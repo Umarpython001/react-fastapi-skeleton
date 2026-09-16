@@ -2,7 +2,15 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from database import Base
 import uuid
+import random   
 
+def generate_matric_no():
+    ans = ""
+
+    for i in range(10):
+        ans += str(random.randint(0, 9))
+
+    return ans
 
 class StudentDB(Base):
     __tablename__ = "students"
@@ -14,6 +22,7 @@ class StudentDB(Base):
     level = Column(Integer)
     email = Column(String, unique=True, index=True)
     unique_user_id = Column(String, default=lambda: str(uuid.uuid4())) #Will be created automatically when a new student is created. This will be used to identify the student uniquely across the system. It will be a UUID string.
+    matric_no = Column(String, unique=True, index=True, default=lambda: generate_matric_no()) #Will be created automatically when a new student is created. 
 
 
 
