@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link} from 'react-router';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,17 +10,19 @@ function MainLayout({ children }: MainLayoutProps) {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-light">
-      {/* Professional Bootstrap Navbar */}
+      {/* Professional Bootstrap Navbar. Navber Header*/}
       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div className="container">
-          <a className="navbar-brand fw-bold text-primary" href="/">
+          <Link className='navbar-brand fw-bold text-primary' to='/'>
             Skeleton<span className="text-dark">Stack</span>
-          </a>
+          </Link>
 
           <button
             className="navbar-toggler"
             type="button"
-            onClick={() => setIsNavCollapsed(!isNavCollapsed)}
+            onClick={() => {setIsNavCollapsed(!isNavCollapsed);
+                console.log('Navbar toggled. isNavCollapsed:', !isNavCollapsed);
+            }}
             aria-controls="navbarNav"
             aria-expanded={!isNavCollapsed}
             aria-label="Toggle navigation"
@@ -30,33 +33,33 @@ function MainLayout({ children }: MainLayoutProps) {
           <div className={`collapse navbar-collapse ${isNavCollapsed ? 'collapse' : ''}`} id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/students">Students</a>
+                <Link className="nav-link" to="/students">Students</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/about">About</a>
+                <Link className="nav-link" to="/about">About</Link>
               </li>
               <li className="nav-item ms-lg-3">
-                <a className="btn btn-outline-primary btn-sm me-2" href="/login">Sign In</a>
+                <Link className="btn btn-outline-primary btn-sm me-2" to="/login">Sign In</Link>
               </li>
               <li className="nav-item">
-                <a className="btn btn-primary btn-sm" href="/register">Get Started</a>
+                <Link className="btn btn-primary btn-sm" to="/register">Get Started</Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
 
-      {/* Main Content Area */}
+      {/* Main Content Area. Main, where all the children go*/}
       <main className="flex-grow-1 py-4">
         <div className="container">
           {children}
         </div>
       </main>
 
-      {/* Clean Bootstrap Footer */}
+      {/* Clean Bootstrap Footer. Footerrr*/}
       <footer className="bg-white border-top py-4 mt-auto">
         <div className="container text-center">
           <p className="text-muted mb-0 small">
