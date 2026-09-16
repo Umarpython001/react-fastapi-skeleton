@@ -1,0 +1,14 @@
+Routes
+
+React Routes... Returns pages
+    /students
+    /students/{id}
+    /sign_up
+    /login
+    /register
+    /home -- Where you go to after logging in / signing up
+
+
+Backend Routes... Returns JSON data
+    /api/students
+    /api/students/{id}
