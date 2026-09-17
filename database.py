@@ -1,9 +1,20 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import dotenv
+import os
+from dotenv import load_dotenv
 
-# Example using SQLite. For PostgreSQL, use: "postgresql://user:password@localhost/dbname"
-SQLALCHEMY_DATABASE_URL = "sqlite:///./demo.db"
+load_dotenv()
+
+postgresql_user = os.getenv("POSTGRESQL_USER")
+postgresql_password = os.getenv("POSTGRESQL_PASSWORD")
+db_name = os.getenv("DB_NAME")
+
+# postgresql://{postgresql_user}:{postgresql_password}@localhost/db_name
+
+
+SQLALCHEMY_DATABASE_URL=f"postgresql+psycopg://postgres:{postgresql_password}@localhost:5432/{db_name}"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}  # Needed only for SQLite
