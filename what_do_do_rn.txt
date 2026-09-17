@@ -1,1 +1,8 @@
 Make the roues render. Go to /smth and make the routes render!!!
+
+
+
+Work on supabase for auth
+
+
+Make users be able to create an account with the signup page and it will register in the database. 

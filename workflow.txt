@@ -3,3 +3,21 @@ Student goes to courses page
 Student registers courses
 Courses get accepted, rejected or pending
 Student get's notified in their inbox
+
+
+
+
+
+Sqlalchemy is a python library that abstracts writing sql code for querying and writing to databases. 
+It can work with almost every database out there. Postgresql, sqlite, mysql, etc...
+
+Types of databases...
+    PostgreSQL 
+        For handling complex queries, high-volume transactional systems, and data with strict integrity requirements. 
+        It supports advanced data types like JSON.  
+        Used for Enterprise applications, financial systems, backend web servers (often paired with ORMs like SQLAlchemy), and GIS (geographic information systems).  
+        Server-based database. It needs the database to be running on a server instead of a single .db file. 
+        It stores your data inside a structured data directory managed by the PostgreSQL service. You interact with it by connecting to a port (usually localhost:5432) rather than pointing your code directly to a file.
+
+    SQLite
+        A local first file type form of storing data. It makes the database as a .db file on a device that can be read from.
