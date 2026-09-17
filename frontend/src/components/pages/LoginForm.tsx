@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { form } from 'framer-motion/client';
 import React ,{ useState } from 'react';
-import api from '../../api';
+import api from '../../api/api';
 // import MainLayout from '../MainLayout';
 
 
