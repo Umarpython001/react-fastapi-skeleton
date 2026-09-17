@@ -14,10 +14,10 @@ db_name = os.getenv("DB_NAME")
 # postgresql://{postgresql_user}:{postgresql_password}@localhost/db_name
 
 
-SQLALCHEMY_DATABASE_URL=f"postgresql+psycopg://postgres:{postgresql_password}@localhost:5432/{db_name}"
+SQLALCHEMY_DATABASE_URL=f"postgresql+psycopg2://postgres:{postgresql_password}@localhost:5432/{db_name}"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}  # Needed only for SQLite
+    SQLALCHEMY_DATABASE_URL
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
