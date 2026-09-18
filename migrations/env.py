@@ -11,7 +11,7 @@ from alembic import context
 
 
 from database import Base, SQLALCHEMY_DATABASE_URL #Imports the DB URL and Base from database.py
-from backend.students.database_models import StudentDB, CourseDB
+from backend.students.database_models import StudentSchema, CourseSchema
 
 
 # this is the Alembic Config object, which provides
