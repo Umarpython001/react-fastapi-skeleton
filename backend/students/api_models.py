@@ -3,8 +3,9 @@ from pydantic import BaseModel
 
 
 
-class StudentSchema(BaseModel):
-    name : str
+class StudentModel(BaseModel):
+    first_name : str
+    last_name : str
     age : int 
     department : str
     level : int
@@ -14,14 +15,29 @@ class StudentSchema(BaseModel):
         "from_attributes": True
     }
 
-class CourseSchema(BaseModel):
+
+class StudentModelCreate(BaseModel):
+    first_name : str
+    last_name : str
+    age : int 
+    department : str
+    level : int
+    email : str 
+    password : str
+
+    model_config = {
+        "from_attributes": True
+    }
+
+
+class CourseModel(BaseModel):
     name : str
     code : str
     unit : int
     lecturer : str
     
 
-class EnrollmentSchema(BaseModel):
+class EnrollmentModel(BaseModel):
     semester : int
     score : int
 
