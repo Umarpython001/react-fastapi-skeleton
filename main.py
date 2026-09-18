@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from enum import Enum
 from backend.students.routes import studentRouter
-from backend.students.database_models import StudentDB, CourseDB
+from backend.students.database_models import StudentSchema, CourseSchema
 from database import Base, engine
 
 
