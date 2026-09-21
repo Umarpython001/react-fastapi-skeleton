@@ -20,6 +20,11 @@ class StudentModel(BaseModel):
     }
 
 
+class LoginDetails(BaseModel):
+    password: str
+    matricNumberOrEmail :str
+
+
 class StudentModelCreate(BaseModel):
     first_name : str
     last_name : str
