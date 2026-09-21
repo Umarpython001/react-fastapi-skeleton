@@ -15,17 +15,17 @@ studentRouter = APIRouter(prefix="/api/students", tags=["students"])
 def all_students(db: Session = Depends(get_db)):
 
     # Get all students from the postgresdb
-    all_students = db.query(StudentSchema).all() #I am testing getting students with supabase
+    # all_students = db.query(StudentSchema).all() #I am testing getting students with supabase
 
-    # response = (
+    response = (
 
-    #             supabase_client.table("students")
-    #             .select("*")
-    #             .execute()
+                supabase_client.table("students")
+                .select("*")
+                .execute()
 
-    #         )
+            )
 
-    return all_students
+    return response.data
 
 @studentRouter.get("/students/{student_id}", response_model=StudentModel)
 def specific_student(student_id:int, db: Session = Depends(get_db)):

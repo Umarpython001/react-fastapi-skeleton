@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import api from '../../api/api';
+import { useNavigate } from 'react-router';
 
 interface SignUpState {
     first_name: string;
@@ -19,6 +20,10 @@ interface NotificationState {
 }
 
 function SignUpForm() {
+
+    const navigate = useNavigate();
+
+
     const [formData, setFormData] = useState<SignUpState>({
         first_name: "",
         last_name: "",
@@ -54,7 +59,8 @@ function SignUpForm() {
             // Prepare data to match backend expectations:
             // Backend expects 'name' (string), 'level' (int), 'age' (int)
             const payload = {
-                name: `${formData.first_name} ${formData.last_name}`,
+                first_name: formData.first_name, 
+                last_name: formData.last_name,
                 age: formData.age,
                 department: formData.department,
                 level: parseInt(formData.level) || 0, // converts "100lvl" to 100
@@ -62,8 +68,14 @@ function SignUpForm() {
                 password: formData.password
             };
 
+            console.log("This is the payload that'll be sent to the backend", payload)
+            console.log("")
             const response = await api.post("/api/students/create_student", payload);
+            console.log(response, "Initial raw response")
+            console.log("")
             const data = response.data;
+            console.log("Data that was made with response.data", data)
+            console.log("")
 
             if (data.status === "successful") {
                 setNotification({
@@ -75,6 +87,10 @@ function SignUpForm() {
                 setFormData({
                     first_name: "", last_name: "", age: 0, department: "", level: "", email: "", password: ""
                 });
+
+                // Redirect user to dashboard page
+                navigate("/dashboard");
+
             } else {
                 setNotification({
                     visible: true,
@@ -83,6 +99,7 @@ function SignUpForm() {
                 });
             }
         } catch (error: any) {
+            console.log(error, "This is the error that was popping up")
             setNotification({
                 visible: true,
                 message: error.response?.data?.message || "Server error. Please try again later.",
@@ -102,15 +119,15 @@ function SignUpForm() {
             <AnimatePresence>
                 {notification.visible && (
                     <motion.div
-                        initial={{ opacity: 0, y: -50, x: '-50%' }}
+                        key={notification.message}
+                        initial={{ opacity: 0, y: -100, x: '-50%' }}
                         animate={{ opacity: 1, y: 20, x: '-50%' }}
-                        exit={{ opacity: 0, y: -50, x: '-50%' }}
+                        exit={{ opacity: 0, y: -100, x: '-50%' }}
                         style={{
                             position: 'fixed',
                             top: 0,
                             left: '50%',
-                            zIndex: 1000,
-                            transform: 'translateX(-50%)',
+                            zIndex: 9999,
                             minWidth: '300px',
                             maxWidth: '90%'
                         }}

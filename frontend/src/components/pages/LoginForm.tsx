@@ -2,7 +2,10 @@ import { motion } from 'framer-motion';
 import { form } from 'framer-motion/client';
 import React ,{ useState } from 'react';
 import api from '../../api/api';
-// import MainLayout from '../MainLayout';
+import { useNavigate } from 'react-router';
+import {useAuth} from '../../context/AuthContext';
+
+
 
 
 interface LoginState{
@@ -16,10 +19,22 @@ interface LoginState{
 
 function LoginForm() {
 
+    const {user, setUser, login, logout, isLoading} = useAuth();
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState<LoginState>({
         "matricNumberOrEmail" : "",
         "password": ""
     })
+
+
+    const [notification, setNotification] = useState<NotificationState>({
+            visible: false,
+            message: "",
+            type: 'success'
+    });
+    
 
     function handleFormChange(change:string, event:React.ChangeEvent<HTMLInputElement>){
 
@@ -33,10 +48,39 @@ function LoginForm() {
     }
 
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log("Form submitted:", formData);
-        // Here you can add your logic to handle the form submission, e.g., send data to an API.
+
+       
+        setNotification({ visible: false, message: "", type: 'success' });
+
+        const payload = {
+
+            matricNumberOrEmail : formData.matricNumberOrEmail,
+            password : formData.password
+        };
+
+
+        const response = await api.post("/api/students/login", payload);
+
+
+        console.log(response, "Response gotten from logigng in user")
+
+        // data = response.fata
+
+        if (response.data.status === "successful"){ //Login the user in this case
+
+            login(response.data.user) //Doesn't this already store the user id to local storage already!?
+
+            navigate("/dashboard")
+
+        }
+
+        console.log("")
+
+        console.log(response.data)
+
     }
 
 

@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import api from '../api/api'
+
 
 // Define the shape of the User profile
 interface User {
@@ -31,16 +33,28 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // On app load, check if there's a userId in localStorage
-        // In a real app, we would fetch the full user profile from the API here
-        const storedUserId = localStorage.getItem('userId');
-        if (storedUserId) {
-            // We keep the user as null initially and let the Dashboard/Profile
-            // fetch the details, or we could fetch them here to have them globally.
-            // For now, we just signal that we have a session.
-            console.log("AuthProvider: Found stored userId, session active.");
-        }
-        setIsLoading(false);
+        const initializeAuth = async () => {
+            try {
+                const storedUserId = localStorage.getItem('userId');
+
+                if (storedUserId) {
+                    console.log("Stored user ID found, fetching profile...", storedUserId);
+                    const url_to_get_user = `http://127.0.0.1:8000/api/students/students/${storedUserId}`;
+                    const response = await api.get(url_to_get_user);
+
+                    console.log("User profile fetched successfully:", response.data);
+                    setUser(response.data);
+                }
+            } catch (error) {
+                console.error("Session recovery failed:", error);
+                localStorage.removeItem('userId');
+            } finally {
+                // Critical: only set loading to false AFTER the fetch is attempted
+                setIsLoading(false);
+            }
+        };
+
+        initializeAuth();
     }, []);
 
     const login = (userData: User) => {
