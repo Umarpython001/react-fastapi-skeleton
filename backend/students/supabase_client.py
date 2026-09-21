@@ -5,6 +5,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 url: str = os.environ.get("PROJECT_URL")
-key: str = os.environ.get("PUBLISHABLE_KEY")
+key: str = os.environ.get("SERVICE_ROLE_KEY")
 
 supabase_client: Client = create_client(url, key)
