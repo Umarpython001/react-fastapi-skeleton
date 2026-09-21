@@ -4,12 +4,16 @@ from pydantic import BaseModel
 
 
 class StudentModel(BaseModel):
+    id:int
     first_name : str
     last_name : str
     age : int 
     department : str
     level : int
     email : str 
+    matric_no : str
+    unique_user_id:str
+
 
     model_config = {
         "from_attributes": True
