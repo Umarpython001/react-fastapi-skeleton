@@ -1,6 +1,6 @@
 # 🚀 Full-Stack Skeleton: React + FastAPI + Supabase
 
-A high-performance, reusable boilerplate designed for rapid prototyping. This skeleton eliminates the "setup fatigue" by providing a pre-configured authentication flow, global state management, and a cloud-database integration.
+A high-performance, reusable boilerplate designed for rapid prototyping. This skeleton eliminates the "setup fatigue" by providing a pre-configured authentication flow, global state management, and a cloud-database integration. 
 
 ## 🛠️ Tech Stack
 - **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS/Bootstrap
